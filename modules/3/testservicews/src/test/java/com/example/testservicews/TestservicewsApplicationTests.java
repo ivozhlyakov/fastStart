@@ -1,10 +1,10 @@
-package com.example.firstws;
+package com.example.testservicews;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FirstwsApplicationTests {
+class TestservicewsApplicationTests {
 
 	@Test
 	void contextLoads() {

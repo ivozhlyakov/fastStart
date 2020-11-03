@@ -1,13 +1,13 @@
-package com.example.firstws;
+package com.example.testservicews;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class FirstwsApplication {
+public class TestservicewsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FirstwsApplication.class, args);
+		SpringApplication.run(TestservicewsApplication.class, args);
 	}
 
 }

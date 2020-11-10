@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <property name="autoIncrement" value="false" dbms="postgresql,mssql,oracle"/>
+
+    <changeSet id="CREATE_TABLE-MOBILE" author="ivozhlyakov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="mobile"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="mobile_seq" incrementBy="1" startValue="1" />
+        <createTable tableName="mobile">
+            <column name="id" type="NUMERIC(19)" remarks="Идентификатор" autoIncrement="${autoIncrement}" defaultValueSequenceNext="mobile_seq">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="model" type="VARCHAR(255)" remarks="Модель">
+            <constraints nullable="false"/>
+            </column>
+            <column name="opersys" type="VARCHAR(255)" remarks="Операционная система">
+                <constraints nullable="false"/>
+            </column>
+            <column name="memory" type="NUMERIC(28, 10)" remarks="Память"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

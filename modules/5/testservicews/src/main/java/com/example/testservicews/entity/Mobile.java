@@ -1,16 +1,17 @@
 package com.example.testservicews.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
+@Table
 @Entity
 public class Mobile {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "mobile_seq", sequenceName = "mobile_seq")
     private Long id;
     private String model;
+    @Column(name = "opersys")
     private String operSys;
     private Integer memory;
 

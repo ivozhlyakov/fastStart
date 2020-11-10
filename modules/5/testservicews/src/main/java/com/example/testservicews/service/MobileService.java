@@ -32,8 +32,10 @@ public class MobileService {
 
     public Mobile update(Long id, Mobile mobile) throws NotFound {
         Mobile mobileOld = mobileRepo.findById(id).orElseThrow(NotFound::new);
-        mobileOld.setModel(mobile.getModel());
-        mobileOld.setOperSys(mobile.getOperSys());
+        if (mobile.getModel() != null)
+            mobileOld.setModel(mobile.getModel());
+        if (mobile.getOperSys() != null)
+            mobileOld.setOperSys(mobile.getOperSys());
         mobileOld.setMemory(mobile.getMemory());
         addMobile(mobileOld);
         return getById(id);

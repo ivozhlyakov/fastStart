@@ -5,19 +5,23 @@ import com.example.testservicews.repository.MobileRepo;
 import org.omg.CosNaming.NamingContextPackage.NotFound;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class MobileService {
 
     @Autowired
     private MobileRepo mobileRepo;
 
+    @Transactional(readOnly = true)
     public List<Mobile> getAllMobiles() {
         return mobileRepo.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Mobile getById(Long id) throws NotFound {
         return mobileRepo.findById(id).orElseThrow(NotFound::new);
     }

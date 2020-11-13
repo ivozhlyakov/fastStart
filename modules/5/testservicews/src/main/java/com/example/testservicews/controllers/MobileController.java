@@ -43,9 +43,7 @@ public class MobileController {
 
     @PutMapping("/mobiles/{id}")
     public Mobile put(@PathVariable Long id, @RequestBody Mobile mobile) throws NotFound {
-        mobileService.update(id, mobile);
-        return mobileService.getById(id);
-
+        return mobileService.update(id, mobile);
     }
 
     @DeleteMapping("/mobiles/{id}")

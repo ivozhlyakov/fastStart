@@ -26,8 +26,9 @@ public class MobileService {
         return mobileRepo.findById(id).orElseThrow(NotFound::new);
     }
 
-    public void addMobile(Mobile mobile){
+    public Long addMobile(Mobile mobile){
         mobileRepo.save(mobile);
+        return mobile.getId();
     }
 
     public void deleteById(Long id) {

@@ -6,6 +6,7 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
 
     <property name="autoIncrement" value="false" dbms="postgresql,mssql,oracle"/>
+    <property name="autoIncrement" value="true" dbms="h2"/>
 
     <changeSet id="CREATE_TABLE-MOBILE" author="ivozhlyakov">
         <preConditions onFail="MARK_RAN">

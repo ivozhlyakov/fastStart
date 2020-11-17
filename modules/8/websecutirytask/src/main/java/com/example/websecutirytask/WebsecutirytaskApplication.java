@@ -1,13 +1,13 @@
-package com.example.testservicews;
+package com.example.websecutirytask;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestservicewsApplication {
+public class WebsecutirytaskApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestservicewsApplication.class, args);
+		SpringApplication.run(WebsecutirytaskApplication.class, args);
 	}
 
 }

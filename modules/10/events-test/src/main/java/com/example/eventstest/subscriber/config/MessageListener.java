@@ -8,13 +8,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class MessageListener {
 
-    @StreamListener(ConsumerChannels.DIRECTED)
-    public void directed(GreetingMessage message) {
-        System.out.println("Directed: " + message);
-    }
-
-    @StreamListener(ConsumerChannels.BROADCASTS)
-    public void broadcasted(String message) {
-        System.out.println("Directed: " + message);
+    @StreamListener(ConsumerChannels.LISENER)
+    public void lisener(String message) {
+        System.out.println("Message: " + message);
     }
 }

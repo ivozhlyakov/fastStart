@@ -8,10 +8,5 @@ spring:
         binderName:
           type: kafka
       bindings:
-        #Подписка на широковещательное сообщение (сообщение получают все подписчики)
-        broadcasts:
+        lisener:
           destination: demo
-        #Подписка на сообщение Point-To-Point (сообщение получает один подписчик из группы)
-        directed:
-          destination: greetings-p2p
-          group: test-p2p-group

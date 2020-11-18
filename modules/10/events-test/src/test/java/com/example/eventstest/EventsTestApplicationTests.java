@@ -1,10 +1,10 @@
-package com.example.websecutirytask;
+package com.example.eventstest;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class WebsecutirytaskApplicationTests {
+class EventsTestApplicationTests {
 
 	@Test
 	void contextLoads() {

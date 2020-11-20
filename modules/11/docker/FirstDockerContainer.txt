@@ -1,0 +1,58 @@
+Your Interactive Bash Terminal. A safe place to learn and execute commands.
+$
+$ docker search redis
+NAME                             DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
+redis                            Redis is an open source key-value store that…   8784                [OK]
+bitnami/redis                    Bitnami Redis Docker Image                      167                                     [OK]
+sameersbn/redis                                                                  82                                      [OK]
+grokzen/redis-cluster            Redis cluster 3.0, 3.2, 4.0, 5.0, 6.0           72
+rediscommander/redis-commander   Alpine image for redis-commander - Redis man…   47                                      [OK]
+kubeguide/redis-master           redis-master with "Hello World!"                33
+redislabs/redisearch             Redis With the RedisSearch module pre-loaded…   29
+redislabs/redis                  Clustered in-memory database engine compatib…   27
+oliver006/redis_exporter          Prometheus Exporter for Redis Metrics. Supp…   22
+redislabs/rejson                 RedisJSON - Enhanced JSON data type processi…   22
+arm32v7/redis                    Redis is an open source key-value store that…   22
+bitnami/redis-sentinel           Bitnami Docker Image for Redis Sentinel         17                                      [OK]
+redislabs/redisinsight           RedisInsight - The GUI for Redis                14
+redislabs/redisgraph             A graph database module for Redis               12                                      [OK]
+webhippie/redis                  Docker images for Redis                         11                                      [OK]
+s7anley/redis-sentinel-docker    Redis Sentinel                                  10                                      [OK]
+arm64v8/redis                    Redis is an open source key-value store that…   10
+insready/redis-stat              Docker image for the real-time Redis monitor…   9                                       [OK]
+redislabs/redismod               An automated build of redismod - latest Redi…   7                                       [OK]
+centos/redis-32-centos7          Redis in-memory data structure store, used a…   5
+circleci/redis                   CircleCI images for Redis                       5                                       [OK]
+clearlinux/redis                 Redis key-value data structure server with t…   3
+tiredofit/redis                  Redis Server w/ Zabbix monitoring and S6 Ove…   1                                       [OK]
+wodby/redis                      Redis container image with orchestration        1                                       [OK]
+xetamus/redis-resource           forked redis-resource                           0                                       [OK]
+$ docker run -d redis
+5b3dbc7e4e364982b5e8fcb7adcb1921e83b074d1e058c0f4c0e2966d488f865
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+5b3dbc7e4e36        redis               "docker-entrypoint.s…"   3 minutes ago       Up 2 minutes        6379/tcp            xenodochial_shirley
+$ docker run -d --name redisHostPort -p 127.0.0.1:6379:6379 redis:latest
+4dfd2e4ab27255d7244a1f910b7a1775b4d8352f7464a5d7154c157ab5331f93
+$ docker run -d --name redisDynamic -p 6379 redis:latest
+132273566b810f64a101c4d770a05caa4e9f94bc175ee23c4b8b2161483ddd8c
+$ docker port redisDynamic 6379
+0.0.0.0:32768
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                      NAMES
+132273566b81        redis:latest        "docker-entrypoint.s…"   59 seconds ago      Up 48 seconds       0.0.0.0:32768->6379/tcp    redisDynamic
+4dfd2e4ab272        redis:latest        "docker-entrypoint.s…"   3 minutes ago       Up 3 minutes        127.0.0.1:6379->6379/tcp   redisHostPort
+5b3dbc7e4e36        redis               "docker-entrypoint.s…"   12 minutes ago      Up 12 minutes       6379/tcp                   xenodochial_shirley
+$ docker run -d --name redisMapped -v /opt/docker/data/redis:/data redis
+1638bae881036e7d8b2c2231de61e1db2b313bfa3f318722793458c304925239
+$ docker ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                      NAMES
+1638bae88103        redis               "docker-entrypoint.s…"   10 seconds ago      Up 9 seconds        6379/tcp                   redisMapped
+132273566b81        redis:latest        "docker-entrypoint.s…"   4 minutes ago       Up 4 minutes        0.0.0.0:32768->6379/tcp    redisDynamic
+4dfd2e4ab272        redis:latest        "docker-entrypoint.s…"   7 minutes ago       Up 6 minutes        127.0.0.1:6379->6379/tcp   redisHostPort
+5b3dbc7e4e36        redis               "docker-entrypoint.s…"   15 minutes ago      Up 15 minutes       6379/tcp                   xenodochial_shirley
+$ docker run ubuntu ps
+  PID TTY          TIME CMD
+    1 ?        00:00:00 ps
+$ docker run -it ubuntu bash
+root@15172e6e8746:/#

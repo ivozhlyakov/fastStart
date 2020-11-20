@@ -1,0 +1,125 @@
+Your Interactive Bash Terminal. A safe place to learn and execute commands.
+$
+$ docker build -t webserver-image:v1 .
+Sending build context to Docker daemon  3.072kB
+Error response from daemon: Dockerfile parse error line 1: unknown instruction: КОПИРОВАТЬ
+$ docker build -t webserver-image:v1 .
+Sending build context to Docker daemon  3.072kB
+Error response from daemon: No build stage in current context
+$ docker build -t webserver-image:v1 .
+Sending build context to Docker daemon  3.072kB
+Step 1/2 : FROM nginx:alpine
+ ---> e5dcd7aa4b5e
+Step 2/2 : COPY . / usr / share / nginx / html
+COPY failed: stat /var/lib/docker/tmp/docker-builder837456829/usr: no such file or directory
+$ docker image
+
+Usage:  docker image COMMAND
+
+Manage images
+
+Options:
+
+
+Commands:
+  build       Build an image from a Dockerfile
+  history     Show the history of an image
+  import      Import the contents from a tarball to create a filesystem image
+  inspect     Display detailed information on one or more images
+  load        Load an image from a tar archive or STDIN
+  ls          List images
+  prune       Remove unused images
+  pull        Pull an image or a repository from a registry
+  push        Push an image or a repository to a registry
+  rm          Remove one or more images
+  save        Save one or more images to a tar archive (streamed to STDOUT by default)
+  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE
+
+Run 'docker image COMMAND --help' for more information on a command.
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               alpine              e5dcd7aa4b5e        2 weeks ago         21.8MB
+ubuntu              latest              16508e5c265d        2 years ago         84.1MB
+redis               latest              4e8db158f18d        2 years ago         83.4MB
+weaveworks/scope    1.9.1               4b07159e407b        2 years ago         68MB
+alpine              latest              11cd0b38bc3c        2 years ago         4.41MB
+$ docker build -t webserver-image:v1 .
+Sending build context to Docker daemon  3.072kB
+Error response from daemon: Dockerfile parse error line 2: COPY requires at least two arguments, but only one was provided. Destination could not be determined.
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+nginx               alpine              e5dcd7aa4b5e        2 weeks ago         21.8MB
+ubuntu              latest              16508e5c265d        2 years ago         84.1MB
+redis               latest              4e8db158f18d        2 years ago         83.4MB
+weaveworks/scope    1.9.1               4b07159e407b        2 years ago         68MB
+alpine              latest              11cd0b38bc3c        2 years ago         4.41MB
+$ docker build -t webserver-image:v1 .
+Sending build context to Docker daemon  3.072kB
+Step 1/2 : FROM nginx:alpine
+ ---> e5dcd7aa4b5e
+Step 2/2 : COPY ./ usr / share / nginx / html
+COPY failed: stat /var/lib/docker/tmp/docker-builder566968055/usr: no such file or directory
+$ docker build -t webserver-image:v1
+"docker build" requires exactly 1 argument.
+See 'docker build --help'.
+
+Usage:  docker build [OPTIONS] PATH | URL | - [flags]
+
+Build an image from a Dockerfile
+$ docker build -t webserver-image:v1
+"docker build" requires exactly 1 argument.
+See 'docker build --help'.
+
+Usage:  docker build [OPTIONS] PATH | URL | - [flags]
+
+Build an image from a Dockerfile
+$ docker build -t webserver-image:v1 .
+Sending build context to Docker daemon  3.072kB
+Step 1/2 : FROM nginx:alpine
+ ---> e5dcd7aa4b5e
+Step 2/2 : COPY ./ usr/ share/ nginx/ html
+COPY failed: stat /var/lib/docker/tmp/docker-builder560237546/usr: no such file or directory
+$ docker build -t webserver-image:v1 .
+Sending build context to Docker daemon  3.072kB
+Step 1/2 : FROM nginx:alpine
+ ---> e5dcd7aa4b5e
+Step 2/2 : COPY ./ ml
+ ---> 0453a4c8a9e4
+Successfully built 0453a4c8a9e4
+Successfully tagged webserver-image:v1
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+webserver-image     v1                  0453a4c8a9e4        9 seconds ago       21.8MB
+nginx               alpine              e5dcd7aa4b5e        2 weeks ago         21.8MB
+ubuntu              latest              16508e5c265d        2 years ago         84.1MB
+redis               latest              4e8db158f18d        2 years ago         83.4MB
+weaveworks/scope    1.9.1               4b07159e407b        2 years ago         68MB
+alpine              latest              11cd0b38bc3c        2 years ago         4.41MB
+$ docker run -d -p 80:80 webserver-image:v1
+3f139100888f3a31a7b914c4673d00103d3e7404f551476d8d61c0dfdd530fa8
+$ curl docker
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+    body {
+        width: 35em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif;
+    }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>

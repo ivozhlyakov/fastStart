@@ -1,0 +1,96 @@
+FROM nginx:1.11-alpine
+copy index.html ./usr/share/nginx/html
+expose 80
+CMD [ "nginx" , "-g" , "daemon off;" ]
+
+
+Your Interactive Bash Terminal. A safe place to learn and execute commands.
+$
+$ docker build -t ferstWebserver:v1
+invalid argument "ferstWebserver:v1" for "-t, --tag" flag: invalid reference format: repository name must be lowercase
+See 'docker build --help'.
+$ docker build -t ferstWebserver:v1 .
+invalid argument "ferstWebserver:v1" for "-t, --tag" flag: invalid reference format: repository name must be lowercase
+See 'docker build --help'.
+$ docker build -t ferstWebserver
+invalid argument "ferstWebserver" for "-t, --tag" flag: invalid reference format: repository name must be lowercase
+See 'docker build --help'.
+$ docker build -t ferstWebserver .
+invalid argument "ferstWebserver" for "-t, --tag" flag: invalid reference format: repository name must be lowercase
+See 'docker build --help'.
+$ docker build -t ferstWebserver-image .
+invalid argument "ferstWebserver-image" for "-t, --tag" flag: invalid reference format: repository name must be lowercase
+See 'docker build --help'.
+$ docker search ferstWebserver-image
+NAME                DESCRIPTION         STARS               OFFICIAL            AUTOMATED
+$ docker search my-nginx-image
+NAME                               DESCRIPTION         STARS               OFFICIAL            AUTOMATED
+murughan1985/my-nginx-image                            0
+telnetinfodocrepo/my-nginx-image                       0
+sushant0452/my-nginx-image                             0
+e507402/my-nginx-image                                 0
+benjacob10/my-nginx-image                              0
+amitipec1/my-nginx-image                               0
+evisalumani/my-nginx-image                             0
+itstitus/my-nginx-image                                0
+kadambarim/my-nginx-image                              0
+stump773/my-nginx-image                                0
+arigela1983/my-nginx-image                             0
+ubajze/my-nginx-image                                  0
+avijit0907/my-nginx-image4                             0
+myfirstdockerrepo/my-nginx-image                       0
+cyr1l/my-nginx-image                                   0
+mthakuria/my-nginx-image                               0
+yesdhinesh/my-nginx-image                              0
+mtareq/my-nginx-image                                  0
+zameersearch/my-nginx-image                            0
+nagashri18/my-nginx-image                              0
+flysky11/my-nginx-image            test                0
+lovejavaee/my-nginx-image-0                            0
+rakeshcptl2/my-nginx-image                             0
+rajeevnov11/my-nginx-image                             0
+lintjohnc/my-nginx-image                               0
+$ docker build -t my-nginx-image .
+Sending build context to Docker daemon  3.072kB
+Error response from daemon: Dockerfile parse error line 1: FROM requires either one or three arguments
+$ docker build -t my-nginx-image .
+Sending build context to Docker daemon  3.072kB
+Step 1/4 : FROM nginx:1.11-alpine
+ ---> bedece1f06cc
+Step 2/4 : copy index.html ./usr/share/nginx/html
+ ---> c5d5d157f43a
+Step 3/4 : expose 80
+ ---> Running in faa88703a84e
+Removing intermediate container faa88703a84e
+ ---> ec9cbcf8d7b6
+Step 4/4 : CMD [ "nginx" , "-g" , "daemon off;" ]
+ ---> Running in 05533ff37d59
+Removing intermediate container 05533ff37d59
+ ---> 95738ecb8fed
+Successfully built 95738ecb8fed
+Successfully tagged my-nginx-image:latest
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+my-nginx-image      latest              95738ecb8fed        21 seconds ago      54.3MB
+ubuntu              latest              16508e5c265d        2 years ago         84.1MB
+redis               latest              4e8db158f18d        2 years ago         83.4MB
+weaveworks/scope    1.9.1               4b07159e407b        2 years ago         68MB
+alpine              latest              11cd0b38bc3c        2 years ago         4.41MB
+nginx               1.11-alpine         bedece1f06cc        3 years ago         54.3MB
+$ docker run -d -p 80:80 my-nginx-image:latest
+481e8e410dc66ae99342a7dd2e36a81e5d85ea4426116b871b38f64abaff6df4
+$ docker ps
+CONTAINER ID        IMAGE                   COMMAND                  CREATED             STATUS              PORTS  NAMES
+481e8e410dc6        my-nginx-image:latest   "nginx -g 'daemon of…"   16 seconds ago      Up 13 seconds       0.0.0.0:80->80/tcp, 443/tcp  confident_agnesi
+$ curl -i http://docker
+HTTP/1.1 200 OK
+Server: nginx/1.11.13
+Date: Fri, 20 Nov 2020 09:34:49 GMT
+Content-Type: text/html
+Content-Length: 21
+Last-Modified: Fri, 20 Nov 2020 09:17:47 GMT
+Connection: keep-alive
+ETag: "5fb789bb-15"
+Accept-Ranges: bytes
+
+<h1>Hello World</h1>

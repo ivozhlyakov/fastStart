@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly>
+    <id>bundle</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <baseDirectory>sms-verification</baseDirectory>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+
+    <fileSets>
+        <!-- documentation -->
+        <fileSet>
+            <directory>../documentation</directory>
+            <outputDirectory>/documentation</outputDirectory>
+        </fileSet>
+        <!-- war -->
+        <fileSet>
+            <directory>../service/target</directory>
+            <outputDirectory>/service</outputDirectory>
+            <includes>
+                <include>*.war</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+    <dependencySets>
+        <!-- database -->
+        <dependencySet>
+            <includes>
+                <include>ru.diasoft.digitalq.quickstart:sms-verification-db</include>
+            </includes>
+            <unpack>false</unpack>
+            <outputDirectory></outputDirectory>
+            <outputFileNameMapping>db-manager-${artifact.version}.${artifact.extension}</outputFileNameMapping>
+        </dependencySet>
+    </dependencySets>
+</assembly>

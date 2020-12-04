@@ -33,13 +33,25 @@
                 <version>1.04.20-20111001</version>
                 <executions>
                     <execution>
+                        <id>Generate REST Controller by Swagger file</id>
+                        <goals>
+                            <goal>local</goal>
+                        </goals>
+                        <configuration>
+                            <skip>true</skip>
+                            <swaggerFile>${project.basedir}/src/main/resources/swagger.yml</swaggerFile>
+                        </configuration>
+                    </execution>
+
+                    <execution>
                         <id>Generate REST Controller by Q.Archer</id>
                         <goals>
                             <goal>qarcher</goal>
                         </goals>
                         <configuration>
                             <skip>false</skip>
-                            <serviceName>smsverification</serviceName>
+                            <target-package>${project.groupId}</target-package>
+                            <serviceName>sms-verification</serviceName>
                             <qarcherModuleName>DQ Hackathon Tutorial</qarcherModuleName>
                             <qarcherVersion>1.01.00</qarcherVersion>
                         </configuration>

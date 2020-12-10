@@ -31,13 +31,17 @@ public class SmsVerificationController {
     @GetMapping("/v1/sms-verification")
     @ApiOperation(value = "Метод проверяет, что введенный код соответствует отправленному.", response = SmsVerificationCheckResponse.class, tags = {"SmsVerification"})
     public ResponseEntity<?> dsSmsVerificationGETnonews_v1_0_SmsVerification(
-                @RequestBody
-                @ApiParam(name = "SmsVerificationCheckRequest", value = "", required = false)
-                SmsVerificationCheckRequest smsVerificationCheckRequest
+                @RequestParam(name = "ProcessGUID") String processGUID,
+                @RequestParam(name = "Code") String code
                 ) {
-        try {                                                                                 
+        try {
+
             return smsVerificationService.dsSmsVerificationGETnonews_v1_0_SmsVerification(
-                smsVerificationCheckRequest);         
+                    SmsVerificationCheckRequest.builder()
+                    .processGUID(processGUID)
+                    .code(code)
+                    .build()
+            );
         } catch (APIException e) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(ExceptionUtils.buildErrorData(e));
         } catch (Exception e) {
@@ -45,7 +49,7 @@ public class SmsVerificationController {
         }
     }
 
-    @PostMapping("/v1/sms-verification")
+    @PostMapping("/sms-verification")
     @ApiOperation(value = "Отправка проверочного кода на телефон клиента.", response = SmsVerificationPostResponse.class, tags = {"SmsVerification"})
     public ResponseEntity<?> dsSmsVerificationPOSTnonews_v1_0_SmsVerification(
                 @RequestBody

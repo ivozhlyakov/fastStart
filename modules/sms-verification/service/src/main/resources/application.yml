@@ -1,80 +1,131 @@
 server:
-  port: ${SERVICE_PORT}
+  port: 7081
   servlet:
     context-path: /${SERVICE_NAME:sms-verification} 
-    
-security:
-  enabled: true
+
+security: 
+  enabled: false
+#  oauth2: 
+#    client: 
+#      clientId: client
+#      clientSecret: secret 
+#      scope: openid
+#      accessTokenUri: http://localhost:8500/mdpauth/oauth/token
+#      userAuthorizationUri: http://localhost:8500/mdpauth/oauth/authorize
+#    resource: 
+#      jwt: 
+#        key-uri: http://localhost:8500/mdpauth/oauth/token_key
   oauth2: 
     client: 
-      clientId: ${OAUTH2_CLIENT_ID}
-      clientSecret: ${OAUTH2_CLIENT_SECRET} 
-      scope: openid
-      accessTokenUri: ${AUTH_SERVER_URL}/mdpauth/oauth/token
-      userAuthorizationUri: ${AUTH_SERVER_URL}/mdpauth/oauth/authorize
+      clientId:
+      clientSecret: 
+      scope:
+      accessTokenUri:
+      userAuthorizationUri:
     resource: 
       jwt: 
-        key-uri: ${AUTH_SERVER_URL}/mdpauth/oauth/token_key
+        key-uri:
         
 spring:
+# Postgres
   datasource:
-    driverClassName: ${DB_DRIVER}
-    url: ${DB_URL}
-    username: ${DB_LOGIN}
-    password: ${DB_PASSWORD}
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://ivozhlyakov7.diasoft.ru:5432/quickstart
+    username: postgres
+    password: dbpostgre
     hikari:
-      connection-test-query: ${DB_TEST_QUERY:}
-      maximumPoolSize: ${HIKARI_MAXIMUM_POOLSIZE:10}
-      minimumIdle: ${HIKARI_MINIMUM_IDLE:10}
-      idleTimeout: ${HIKARI_IDLE_TIMEOUT:600000}
-      connectionTimeout: ${HIKARI_CONNECTION_TIMEOUT:30000}
-      maxLifetime: ${HIKARI_MAX_LIFETIME:1800000}      
+      connection-test-query:
   jpa:
-    database-platform: ${JPA_DIALECT}
+    database-platform: org.hibernate.dialect.PostgreSQL95Dialect
     show-sql: true
     generate-ddl: false
-    open-in-view: false
     hibernate:
       ddl-auto: none
-      naming: 
+      naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
-        globally_quoted_identifiers: ${DB_QUOTED_IDENTIFIERS:false}
+        globally_quoted_identifiers: true # Для PostgreSQL установить в true, для MSSQL, Oracle в false
         jdbc:
           time_zone: UTC
           lob:
             non_contextual_creation: true
-# Generate Events Publisher or Subsriber    
+
+# Oracle
+#  datasource:
+#    driverClassName: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@aml2devops:1521:tstdf
+#    username: TEMPLATE
+#    password: TEMPLATE
+#    hikari:
+#      connection-test-query:
+#  jpa:
+#    database-platform: org.hibernate.dialect.Oracle10gDialect
+#    show-sql: true
+#    generate-ddl: false
+#    hibernate:
+#      ddl-auto: none
+#      naming: 
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#    properties:
+#      hibernate:
+#        globally_quoted_identifiers: false # Для PostgreSQL установить в true, для MSSQL, Oracle в false
+#        jdbc:
+#          time_zone: UTC
+#          lob:
+#            non_contextual_creation: true
+
+# h2
+#  datasource:
+#    driverClassName: org.h2.Driver
+#    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+#    username: sa
+#    password:
+#  jpa:
+#    database-platform: org.hibernate.dialect.H2Dialect
+#    show-sql: true
+#    generate-ddl: true
+#    hibernate:
+#      ddl-auto: none
+#      naming:
+#        physical-strategy: ru.diasoft.micro.lib.config.H2PhysicalNamingStrategy
+#    properties:
+#      hibernate:
+#        jdbc:
+#          time_zone: UTC
+#          lob:
+#            non_contextual_creation: true
+# Generate Events Publisher or Subsriber
   kafka:
-    bootstrap-servers: ${KAFKA_URL}  
+    bootstrap-servers: localhost:9092   
   cloud:      
     stream:
-      function:
-        definition: InMemorySwaggerResourcesProviderStub
       binders:
         binderName:
           type: kafka
       bindings:
-        eventHelloPublish:
-          destination: event-hello
-        eventHelloSubscribe:
-          destination: event-hello 
-  messages:
-    basename: i18n.messages
-        
+        smsVerificationPublish:
+          destination: sms-verification
+        smsVerificationDeliveredSubscribe:
+          destination: sms-verification-delivered
+          group: sms-verification
+#  messages:
+#    basename: i18n.messages
+
 dstrace:
-  enabled: ${TRACER_ENABLE:true}
+  enabled: ${TRACER_ENABLE:false}
   mode: ${TRACE_MODE:develop}
   collector:
     type: http
     address: ${TRACER_HOST:localhost}:${TRACER_PORT:9411}
-    
+
 dslogging:
   nesting-level-limit: ${LOGGING_NESTING_LEVEL_LIMIT:2}
   items-on-level-limit: ${LOGGING_ITEMS_ON_LEVEL_LIMIT:100}
   exclude-items: ${LOGGING_EXCLUDE_ITEMS:}
   include-items: ${LOGGING_INCLUDE_ITEMS:}
+
+
 
 logging:
   config: classpath:log4j2.xml
@@ -88,33 +139,33 @@ logging:
 
 chaos:
   monkey:
-    enabled: ${CHAOS_MONKEY_ENABLED:false}
+    enabled: false
     watcher:
-      component: ${CM_WATCHER_COMPONENT_ENABLED:false}
-      controller: ${CM_WATCHER_CONTROLLER_ENABLED:false}
-      repository: ${CM_WATCHER_REPOSITORY_ENABLED:false}
-      rest-controller: ${CM_WATCHER_REST_CONTROLLER_ENABLED:true}
-      service: ${CM_WATCHER_SERVICE_ENABLED:true}
-
+      component: false
+      controller: false
+      repository: false
+      rest-controller: true
+      service: true  
+      
 feign:
   client:
     config:
       default:
-        connectTimeout: ${FEIGN_CLIENT_CONNECT_TIMEOUT:300000}
-        readTimeout: ${FEIGN_CLIENT_READ_TIMEOUT:300000}
-
+        connectTimeout: 300000
+        readTimeout: 300000
+        
 rest-template:
   config:
-    connectTimeout: ${REST_TEMPLATE_CONNECT_TIMEOUT:300000}
-    readTimeout: ${REST_TEMPLATE_READ_TIMEOUT:300000}
+    connectTimeout: 300000
+    readTimeout: 300000
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-        #exclude: env,beans
-  metrics:
-    export:
-      atlas:
-        enabled: false
+
+eureka:
+  client:
+    enabled: true
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true

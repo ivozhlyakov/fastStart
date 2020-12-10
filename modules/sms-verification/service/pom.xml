@@ -48,32 +48,41 @@
                 </configuration>
             </plugin>
             <plugin>
-                <!-- DQCodeGen https://conf.diasoft.ru/pages/viewpage.action?pageId=44771672 -->
                 <groupId>ru.diasoft.digitalq.codegen</groupId>
                 <artifactId>dqcodegen-maven-plugin</artifactId>
+                <version>1.04.20-20111001</version>
                 <executions>
                     <execution>
                         <id>Generate REST Controller by Q.Archer</id>
-                        <!-- DQCodeGen+Q.Archer https://conf.diasoft.ru/pages/viewpage.action?pageId=121474970 -->
                         <goals>
                             <goal>qarcher</goal>
                         </goals>
                         <configuration>
                             <skip>true</skip>
-                            <serviceName>QArcherDemo</serviceName>
-                            <qarcherService>http://dsagregator2:8030</qarcherService>
-                            <targetPackage>ru.diasoft.digitalq.quickstart</targetPackage>
-                            <qarcherModuleName>DQ Mobile Investment Client Portfolio</qarcherModuleName>
-                            <!--    -->
-                            <qarcherVersion>1.01.01</qarcherVersion>
-                            <!--    -->
-                            <restModuleSplit>true</restModuleSplit>
-                            <useZonedDateTime>true</useZonedDateTime>
-                            <useReactiveApi>false</useReactiveApi>
-                            <useJsonNodeType>true</useJsonNodeType>
-                            <useResponseDTO>true</useResponseDTO>
+                            <target-package>${project.groupId}</target-package>
+                            <serviceName>sms-verification</serviceName>
+                            <qarcherModuleName>DQ Hackathon Tutorial</qarcherModuleName>
+                            <qarcherVersion>1.01.00</qarcherVersion>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>Generate Events Publisher</id>
+                        <goals>
+                            <goal>local</goal>
+                        </goals>
+                        <configuration>
+                            <skip>true</skip>
+                            <target-package>${project.groupId}</target-package>
+                            <asyncApiFile>${project.basedir}/src/main/resources/event-subscriber.yml</asyncApiFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- DQCodeGen https://conf.diasoft.ru/pages/viewpage.action?pageId=44771672 -->
+                <groupId>ru.diasoft.digitalq.codegen</groupId>
+                <artifactId>dqcodegen-maven-plugin</artifactId>
+                <executions>
                     <execution>
                         <id>Generate Events</id>
                         <!-- DQCodeGen+Event-Driven Architectures (EDA). conf.diasoft.ru/pages/viewpage.action?pageId=50894482 -->
@@ -84,7 +93,7 @@
                             <skip>true</skip>
                             <serviceName>QArcherDemo</serviceName>
                             <qarcherService>http://dsagregator2:8050</qarcherService>
-                            <targetPackage>ru.diasoft.digitalq.quickstart</targetPackage>
+                            <targetPackage>${project.groupId}</targetPackage>
                             <qarcherModuleName>DQ Mobile Investment Client Portfolio</qarcherModuleName>
                             <!--    -->
                             <qarcherVersion>1.01.01</qarcherVersion>

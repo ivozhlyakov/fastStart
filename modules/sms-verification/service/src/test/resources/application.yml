@@ -21,3 +21,19 @@ spring:
             non_contextual_creation: true
   liquibase:
     change-log: classpath*:liquibase-extracted/rootChangeLog.xml
+
+
+  # Generate Events Publisher or Subsriber
+  kafka:
+    bootstrap-servers: localhost:9092
+  cloud:
+    stream:
+      binders:
+        binderName:
+          type: kafka
+      bindings:
+        smsVerificationPublish:
+          destination: sms-verification
+        smsVerificationDeliveredSubscribe:
+          destination: sms-verification-delivered
+          group: sms-verification

@@ -21,7 +21,8 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
             .csrf().disable()
             .authorizeRequests()
             .antMatchers("/", "/csrf", "/v2/api-docs", "/swagger-resources/configuration/ui", "/configuration/ui", "/swagger-resources", "/swagger-resources/configuration/security", "/configuration/security", "/swagger-ui.html", "/swagger-ui/**", "/webjars/**", "/actuator/**").permitAll()
-            .antMatchers("/**").authenticated();
+                    .anyRequest().authenticated();
+//            .antMatchers("/**").authenticated();
         } else {
             http.authorizeRequests().antMatchers("/**").permitAll();
         }
